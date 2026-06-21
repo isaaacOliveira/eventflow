@@ -67,7 +67,7 @@ Route::get('/ativar-meu-admin-secreto', function () {
 
     // 2. Cria o utilizador diretamente pelo servidor do Render
     $user = User::firstOrCreate(
-        ['email' => 'pedrohokaoliveira@gmail.com'],
+        ['email' => 'pedrohokaoliveira3@gmail.com'],
         [
             'name' => 'Pedro Oliveira',
             'password' => Hash::make('03Is@@c2@@22') // Escolhe a tua senha aqui
