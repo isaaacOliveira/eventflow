@@ -10,12 +10,14 @@ php artisan view:cache
 npm install
 npm run build
 
-# Rodar as migrations automaticamente (importante para o laravel-permission)
+
 # O --force é obrigatório em ambiente de produção
 php artisan migrate --force
-
 #executar o seeder para te dar permissoes de admin 
 php artisan db:seed --force
+# Rodar as migrations automaticamente (importante para o laravel-permission)
+
+
 
 # Iniciar o PHP-FPM em segundo plano e o Nginx em primeiro plano
 php-fpm -D && nginx -g "daemon off;"
