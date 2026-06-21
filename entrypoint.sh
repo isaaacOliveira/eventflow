@@ -13,6 +13,8 @@ npm run build
 
 # O --force é obrigatório em ambiente de produção
 php artisan migrate --force
+# para fazer upluad
+php artisan storage:link
 
 # Iniciar o PHP-FPM em segundo plano e o Nginx em primeiro plano
 php-fpm -D && nginx -g "daemon off;"
