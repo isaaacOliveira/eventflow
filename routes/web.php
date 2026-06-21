@@ -55,4 +55,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 });
 
+Route::get('/limpar-cache-permissões', function () {
+    app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+    \Illuminate\Support\Facades\Artisan::call('cache:clear');
+    return 'Cache de permissões limpa com sucesso!';
+});
+
+
 require __DIR__.'/settings.php';
