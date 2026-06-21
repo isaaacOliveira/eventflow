@@ -5,6 +5,11 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
+
+# Compilar os assets do Vite para produção
+npm install
+npm run build
+
 # Rodar as migrations automaticamente (importante para o laravel-permission)
 # O --force é obrigatório em ambiente de produção
 php artisan migrate --force
