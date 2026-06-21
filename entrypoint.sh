@@ -14,9 +14,5 @@ npm run build
 # O --force é obrigatório em ambiente de produção
 php artisan migrate --force
 
-#executar o seeder para te dar permissoes de admin 
-php artisan db:seed --force
-
-
 # Iniciar o PHP-FPM em segundo plano e o Nginx em primeiro plano
 php-fpm -D && nginx -g "daemon off;"
