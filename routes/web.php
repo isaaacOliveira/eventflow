@@ -55,11 +55,40 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 });
 
-Route::get('/limpar-cache-permissões', function () {
+use App\Models\User;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
+Route::get('/limpar-cache-permissoes', function () {
+    // 1. Limpa qualquer cache antiga do Spatie
     app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
+    // 2. Garante que a Role existe
+    $role = Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);
+
+    // 3. Cria as permissões principais que o teu painel deve estar a pedir
+    // (Podes adicionar aqui os nomes exatos que usaste no teu projeto, ex: 'criar eventos')
+    $permissoes = ['criar eventos', 'editar eventos', 'gerir utilizadores', 'ver painel'];
+    foreach ($permissoes as $perm) {
+        Permission::firstOrCreate(['name' => $perm, 'guard_name' => 'web']);
+    }
+
+    // 4. Sincroniza todas as permissões diretamente na Role de Admin
+    $role->syncPermissions(Permission::all());
+
+    // 5. Procura o teu utilizador e garante que ele tem a Role e todas as permissões
+    $user = User::where('email', 'admin@gmail2.com')->first();
+    if ($user) {
+        $user->assignRole($role);
+        $user->syncPermissions(Permission::all()); // Dá também as permissões diretas por segurança
+    }
+
     \Illuminate\Support\Facades\Artisan::call('cache:clear');
-    return 'Cache de permissões limpa com sucesso!';
+
+    return 'Super-poderes injetados e cache limpa com sucesso!';
 });
+
+
 
 
 require __DIR__.'/settings.php';
