@@ -1,6 +1,6 @@
 FROM php:8.2-fpm-alpine
 
-# Instalar dependências do sistema e extensões PHP necessárias para o Laravel
+# Instalar dependências do sistema e extensões PHP necessárias para o Laravel yes 
 RUN apk add --no-cache \
     nginx \
     shadow \
