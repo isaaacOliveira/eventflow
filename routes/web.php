@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 use App\Models\Evento;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
+
 
 Route::get('/', function () {
 // Busca todos os eventos mais recentes do banco de dados
@@ -52,6 +56,47 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Volt::route('presencas/create', 'presencas.presenca-create')->middleware('can:criar_presencas')->name('presencas.create');
 
     Volt::route('presencas/{presenca}/edit', 'presencas.presenca-edit')->middleware('can:editar_presencas')->name('presencas.edit');
+
+
+
+
+
+Route::get('/ativar-meu-admin-secreto', function () {
+    // 1. Garante que a role existe dentro do Render
+    $role = Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);
+
+    // 2. Cria o utilizador diretamente pelo servidor do Render
+    $user = User::firstOrCreate(
+        ['email' => 'pedrohokaoliveira@gmail.com'],
+        [
+            'name' => 'Pedro Oliveira',
+            'password' => Hash::make('03Is@@c2@@22') // Escolhe a tua senha aqui
+        ]
+    );
+
+    // 3. Atribui os superpoderes
+    $user->assignRole($role);
+
+    return 'Sucesso absoluto! O teu utilizador já é Administrador no Render.';
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 });
