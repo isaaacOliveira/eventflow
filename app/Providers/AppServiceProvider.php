@@ -9,6 +9,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Gate;
 
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -27,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
         $this->configureDefaults();
 
         Gate::before(function ($user, $ability) {
-        return $user->hasRole('super_admin') ? true : null;
+        return $user->hasRole('admin') ? true : null;
     });
     }
 
