@@ -1,4 +1,3 @@
-
 <?php
 
 namespace App\Models;
@@ -46,10 +45,11 @@ class User extends Authenticatable
             ->implode('');
     }
 
-    public function posts()
-    {
-        return $this->hasMany(Post::class);
-    }
+        public function posts()
+        {
+            return $this->hasMany(Post::class);
+        }
+
 
     /**
      * Gatilho automático para novos utilizadores
@@ -64,4 +64,7 @@ class User extends Authenticatable
             $user->assignRole($role);
         });
     }
+
+
+
 }
