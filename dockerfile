@@ -1,12 +1,6 @@
 FROM php:8.3-fpm-alpine
 
-# Instalar Node.js e NPM para compilar o Vite
-RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y Hat-get install -y nodejs
-
-
-
-# Instalar dependências do sistema e extensões PHP necessárias para o Laravel yes 
+# Instalar dependências do sistema, extensões PHP e Node.js/NPM
 RUN apk add --no-cache \
     nginx \
     shadow \
@@ -18,7 +12,10 @@ RUN apk add --no-cache \
     git \
     oniguruma-dev \
     postgresql-dev \
+    nodejs \
+    npm \
     $PHPIZE_DEPS
+
 
 RUN docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd
 
