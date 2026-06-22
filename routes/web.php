@@ -55,31 +55,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 });
 
-use App\Models\User;
-use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Artisan;
-use Spatie\Permission\PermissionRegistrar;
-
-Route::get('/forcar-super-admin', function () {
-    // Limpa cache do Spatie
-    app()[PermissionRegistrar::class]->forgetCachedPermissions();
-
-    // Cria a role caso ela tenha sido apagada
-    $role = Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);
-
-    // Encontra o teu utilizador principal (ID 2)
-    $user = User::find(2);
-
-    if ($user) {
-        $user->assignRole($role);
-        Artisan::call('cache:clear');
-        Artisan::call('config:clear');
-        return 'Sucesso Total! O utilizador ' . $user->email . ' agora e Admin e as caches foram limpas.';
-    }
-
-    return 'Erro: Utilizador com ID 2 nao foi encontrado.';
-});
-
 
 
 require __DIR__.'/settings.php';
