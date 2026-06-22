@@ -51,20 +51,7 @@ class User extends Authenticatable
         }
 
 
-    /**
-     * Gatilho automático para novos utilizadores
-     */
-    protected static function booted(): void
-    {
-        static::created(function ($user) {
-            // Garante que a role 'cliente' existe antes de atribuir
-            $role = \Spatie\Permission\Models\Role::firstOrCreate(['name' => 'cliente', 'guard_name' => 'web']);
-            
-            // Atribui automaticamente o papel ao novo utilizador cadastrado
-            $user->assignRole($role);
-        });
-    }
-
+   
 
 
 }
